@@ -17,4 +17,4 @@ I have check my knowledge in MVC applications and Spring Boot :)
 3. Thymleaf blade
 4. JPA
 5. MySQL
-6. Semantic UI & Bootstrap Grid
+6. [Semantic UI](https://semantic-ui.com/) & [Bootstrap Grid](https://getbootstrap.com/)
