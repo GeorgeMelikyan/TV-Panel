@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="blocks/header :: head">
+</head>
+<body>
+
+<div th:insert="blocks/header :: header">
+</div>
+
+<div class="ui centered grid" style="padding-top: 5rem;">
+    <div class="row">
+        <div class="twelve wide column">
+        <div class="ui placeholder segment" style="background-image: url(https://www.eastbaytimes.com/wp-content/uploads/2019/05/ATHOME-INTERIORS-MOVING-DMT-1.jpg);
+    background-size: 100%;
+    background-position: center;">
+            <div class="ui icon header" style="color: white">
+                <i class="boxes icon"></i>
+                Склад
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="two wide column"></div>
+        <div class="eight wide column">
+            <h3 class="ui top attached header">
+                Комплекты оборудования
+            </h3>
+            <div class="ui attached segment">
+                <table class="ui single line table">
+                    <thead>
+                    <tr>
+                        <th>Артикул</th>
+                        <th>Список техники</th>
+                        <th>Управление</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="el : ${equip}">
+                        <td th:text="${el.id}">John Lilki</td>
+                        <td th:text="${el.cameras}">September 14, 2013</td>
+                        <td>
+                            <div class="ui small basic icon buttons" style="float: right;">
+                                <a th:href="'/equip/edit/'+${el.id}">
+                                    <button class="ui green basic small button"><i class="edit icon"></i> Изменить состав</button>
+                                </a>
+                                <form th:action="'/equip/delete/'+${el.id}" method="post">
+                                    <button type="submit" class="ui red basic very small button"><i class="remove icon"></i>
+                                    </button>
+                                </form>
+
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <div class="four wide column">
+
+            <div class="ui segment">
+                <h4 class="ui horizontal divider header">
+                    <i class="camera icon"></i>
+                    Новый комплект
+                </h4>
+
+                <div class="ui form error">
+                    <form method="post" action="/equip/add">
+                        <div class="field">
+                            <label>Состав комплекта (через запятую)</label>
+                            <textarea name="cameras"></textarea>
+                        </div>
+
+                        <div class="ui error message"></div>
+
+                        <button type="submit" class="ui submit button">Добавить</button>
+
+
+                    </form>
+                </div>
+
+
+                <script>
+
+                    $('.ui.form')
+                        .form({
+                            fields: {
+                                cameras: {
+                                    identifier: 'cameras',
+                                    rules: [
+                                        {
+                                            type: 'empty',
+                                            prompt: 'Пожалуйста, заполните состав комплекта наименованием через запятую'
+                                        }
+                                    ]
+                                }
+                            }
+                        });
+                </script>
+
+            </div>
+        </div>
+        <div class="two wide column"></div>
+    </div>
+</div>
+
+<div th:replace="blocks/header :: footer">
+</div>
+
+</body>
+</html>

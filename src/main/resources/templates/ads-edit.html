@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="blocks/header :: head">
+</head>
+<body>
+
+<div th:insert="blocks/header :: header">
+</div>
+
+<div class="ui centered grid" style="padding-top: 5rem;">
+    <div class="row">
+        <div class="four wide column"></div>
+        <div class="eight wide column">
+            <h3 class="ui top attached header">
+                Редактирование рекламной компании
+            </h3>
+            <div class="ui attached segment">
+
+                <div class="ui form error">
+                    <form method="post" th:action="'/ads/edit/'+${ads.id}">
+                        <div class="field">
+                            <input type="text" name="company_name"  th:value="${ads.company_name}" placeholder="Название компании">
+                        </div>
+                        <div class="field">
+                            <input type="text" name="product" th:value="${ads.product}" placeholder="Продукт">
+                        </div>
+                        <div class="field">
+                            <input type="text" name="description" th:value="${ads.description}" placeholder="Описание">
+                        </div>
+                        <div class="field">
+                            <input type="text" name="agent" th:value="${ads.agent}" placeholder="Агент">
+                        </div>
+                        <div class="field">
+                            <div class="ui calendar" id="no_ampm">
+                                <div class="ui input left icon">
+                                    <i class="time icon"></i>
+                                    <input type="text" name="duration"  th:value="${ads.duration}" placeholder="Продолжительность">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <input type="text" name="url" th:value="${ads.url}" placeholder="URL адрес">
+                        </div>
+
+                        <div class="field">
+                            <input type="text" name="type_of_conversion" th:value="${ads.type_of_conversion}" placeholder="Тип конверсии">
+                        </div>
+                        <div class="ui error message"></div>
+
+                        <button type="submit" class="ui submit button">Сохранить</button>
+
+
+                    </form>
+                </div>
+
+
+                <script>
+
+                    $('#no_ampm')
+                        .calendar({
+                            type: 'time',
+                            ampm: false
+                        })
+                    ;
+
+                    $('.ui.form')
+                        .form({
+                            fields: {
+                                name: {
+                                    identifier: 'company_name',
+                                    rules: [
+                                        {
+                                            type: 'empty',
+                                            prompt: 'Пожалуйста, введите название компании'
+                                        }
+                                    ]
+                                },
+                                product: {
+                                    identifier: 'product',
+                                    rules: [
+                                        {
+                                            type: 'empty',
+                                            prompt: 'Пожалуйста, введите рекламируемый продукт'
+                                        }
+                                    ]
+                                },
+                                pos: {
+                                    identifier: 'agent',
+                                    rules: [
+                                        {
+                                            type: 'empty',
+                                            prompt: 'Пожалуйста, укажите рекламного представителя'
+                                        },
+
+                                    ]
+                                }
+                            }
+                        });
+                </script>
+
+            </div>
+        </div>
+
+        <div class="four wide column"></div>
+    </div>
+</div>
+
+<div th:replace="blocks/header :: footer">
+</div>
+
+</body>
+</html>

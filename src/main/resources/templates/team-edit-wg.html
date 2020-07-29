@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<title th:text="'TV » Редактирование сотрудника'"></title>
+<head th:insert="blocks/header :: head">
+</head>
+<body>
+
+<div th:insert="blocks/header :: header">
+</div>
+
+<div class="ui centered grid" style="padding-top: 5rem;">
+    <div class="row">
+        <div class="four wide column"></div>
+        <div class="eight wide column">
+            <h3 class="ui top attached header">
+                Редактирование группы
+            </h3>
+            <div class="ui attached segment">
+
+
+                <div class="ui form wg error">
+                    <form  th:each="el : ${wg}" th:action="'/team/'+${el.id}+'/edit-wg/'" method="post">
+                        <div class="ui action input">
+                            <input th:value="${el.name}"  type="text" name="name" placeholder="Название группы">
+                            <button type="submit" class="ui icon button">
+                                Сохранить
+                            </button>
+                        </div>
+                        <div class="ui error message"></div>
+                    </form>
+                </div>
+                    <script>
+
+                        $('.ui.form')
+                            .form({
+                                fields: {
+                                    name: {
+                                        identifier: 'name',
+                                        rules: [
+                                            {
+                                                type: 'empty',
+                                                prompt: 'Пожалуйста, введите название группы'
+                                            }
+                                        ]
+                                    }
+                                }
+                            });
+                    </script>
+            </div>
+
+            <div class="ui segment">
+
+                <h3 class="ui header">
+                    <i class="user icon"></i>
+                    <div class="content">
+                        Состав группы
+                        <div class="sub header">Добавление нового сотрудника</div>
+                    </div>
+                </h3>
+
+
+                <div th:each="el : ${wg}">
+                <form th:action="'/team/'+${el.id}+'/edit-wg/add-emp'" method="post">
+            <div class="ui fluid search selection dropdown" style="    width: 80% !important;
+    display: inline-block;">
+                <input type="hidden" name="personal_id">
+                <i class="dropdown icon"></i>
+                <div class="default text">Выберите сотрудника</div>
+                <div class="menu">
+                    <div th:each="el : ${team_all}" class="item" th:text="${el.name}" th:attr="data-value=${el.id}"></div>
+                </div>
+            </div>
+                    <button type="submit" class="ui primary button" style="float: right">
+                        Добавить
+                    </button>
+                </form>
+                </div>
+            </div>
+
+            <script>
+                $('.ui.dropdown')
+                    .dropdown()
+                ;
+            </script>
+
+            <div class="ui segment">
+                <table class="ui single line table">
+                    <thead>
+                    <tr>
+                        <th>Имя</th>
+                        <th>Телефон</th>
+                        <th>Дата рождения</th>
+                        <th>Должность</th>
+                        <th>Правка</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user : ${team}">
+                        <td><a th:text="${user.name}" th:href="'/team/'+${user.id}+'/edit-employ'">John Lilki</a></td>
+                        <td th:text="${user.phone}">September 14, 2013</td>
+                        <td th:text="${user.birth}">jhlilk22@yahoo.com</td>
+                        <td th:text="${user.position}"></td>
+                        <td>
+                            <div class="ui small basic icon buttons" style="float: right;">
+                                <div th:each="el : ${wg}">
+                                <form th:action="'/team/'+${el.id}+'/remove-emp/'+${user.id}" method="post">
+                                    <button type="submit" class="ui red basic very small button"><i class="remove icon"></i>
+                                    </button>
+                                </form>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="four wide column"></div>
+    </div>
+</div>
+
+<div th:replace="blocks/header :: footer">
+</div>
+
+</body>
+</html>

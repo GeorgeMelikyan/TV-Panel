@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<title th:text="'TV » Редактирование сотрудника'"></title>
+<head th:insert="blocks/header :: head">
+</head>
+<body>
+
+<div th:insert="blocks/header :: header">
+</div>
+
+<div class="ui centered grid" style="padding-top: 5rem;">
+    <div class="row">
+        <div class="four wide column"></div>
+        <div class="eight wide column">
+            <h3 class="ui top attached header">
+                Редактирование комплекта
+            </h3>
+            <div class="ui attached segment">
+
+                    <div class="ui form error">
+                        <form method="post">
+                            <div class="field">
+                                <label>Состав комплекта (через запятую)</label>
+                                <textarea name="cameras" th:text="${equip.cameras}"></textarea>
+                            </div>
+                            <div class="ui error message"></div>
+
+                            <button type="submit" class="ui submit button">Изменить</button>
+
+
+                        </form>
+                    </div>
+
+
+
+                    <script>
+
+
+                        $('.ui.form')
+                            .form({
+                                fields: {
+                                    cameras: {
+                                        identifier: 'cameras',
+                                        rules: [
+                                            {
+                                                type: 'empty',
+                                                prompt: 'Пожалуйста, заполните состав комплекта наименованием через запятую'
+                                            }
+                                        ]
+                                    }
+                                }
+                            });
+                    </script>
+
+            </div>
+        </div>
+
+        <div class="four wide column"></div>
+    </div>
+</div>
+
+<div th:replace="blocks/header :: footer">
+</div>
+
+</body>
+</html>

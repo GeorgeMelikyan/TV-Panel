@@ -1,0 +1,188 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="blocks/header :: head">
+</head>
+<body>
+
+<div th:insert="blocks/header :: header">
+</div>
+
+<div class="ui centered grid" style="padding-top: 5rem;">
+    <div class="ui ten wide column">
+        <div class="ui placeholder segment" style="background-image: url(https://sun1-26.userapi.com/SV5kdfHgOr5wX387aZ37Aacsw_RL26zLaQ9fsQ/2U1DvXGOyz4.jpg);
+    background-size: 100%;
+    background-position: center;">
+            <div class="ui icon header">
+                <i class="tv icon"></i>
+                Добро пожаловать, Георгий!
+            </div>
+            <div class="inline">
+                <div class="ui primary button"><a href="/schedule" style="color: white">Перейти к эфирам</a></div>
+                <div class="ui active button"><a href="/program" style="color: gray">Добавить программу</a></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="three wide column"></div>
+        <div class="six wide column">
+            <div class="ui segment">
+                <h3 class="ui header" style="padding-left: 10px; display: unset">
+                    <i class="settings icon"></i>
+                    <div class="content">
+                        Расписание эфира
+                        <div class="sub header" id="shedule"></div>
+                    </div>
+                </h3>
+
+                <form method="post" action="/" style="    display: flex;
+    float: right;">
+                <div class="ui icon input" style="
+    float: right;
+">
+                    <input type="text" name="name" placeholder="Поиск...">
+                    <i class="search icon"></i>
+                </div>
+                </form>
+
+                <div th:each="el : ${schedule}" class="ui segment">
+                    <a th:text="${el.getprogram_time()}" class="ui green left ribbon label">16:45</a>
+                    <a th:href="'/program/edit/' + ${el.getProgram().iterator().next().getId()}" th:text="${el.getProgram().iterator().next().getName()}" class="header"><h3>12 Years a Slave</h3></a>
+<!--                    <div class="extra" style="display: inline-block; float: right;">-->
+<!--                        <div th:text="${el.getProgram().iterator().next().getWg().getName()}" class="ui red basic label">Синема Продакшн</div>-->
+<!--                    </div>-->
+                    <div class="ui grid" style="margin-top: 5px;">
+
+                        <div class="eleven wide column">
+                            <div class="content">
+
+
+                                <div class="description" style="height: 85px;  overflow: overlay; padding-right: 11px;">
+                                    <p th:text="${el.getProgram().iterator().next().getDescription()}"> В одном из развлекательных заведения Израиля происходит трагический случай,
+                                        который не мог не привлечь внимание общества и СМИ. В одном из развлекательных
+                                        заведения Израиля происходит трагический случай, который не мог не привлечь
+                                        внимание общества и СМИ.</p>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="five wide column">
+                            <div class="image">
+                                <img th:src="${el.getProgram().iterator().next().getUrl()}" style="
+    width: 100%;
+">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="four wide column">
+
+            <div class="ui segment">
+                <div class="ui statistics">
+                    <div class="statistic" style="margin-left: auto; margin-right: auto;">
+                        <div class="value" id="time">
+                            31,200
+                        </div>
+                        <div class="label">
+                            Время
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="ui steps" style="width: 100%">
+                    <div class="step">
+                        <i class="play icon" style="margin-left: -7px;"></i>
+                        <div class="content">
+                            <div class="title">Параметры за 40 минут</div>
+                            <div class="description">Скоро в эфире</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui cards">
+                    <div class="card" style="width: 100%;">
+                        <div class="content">
+                            <img class="right floated mini ui image" src="https://semantic-ui.com/images/avatar/large/jenny.jpg">
+                            <div class="header">
+                                Джени Хенс
+                            </div>
+                            <div class="meta">
+                                Отдел VFX-графики
+                            </div>
+                            <div class="description">
+                                Добавьте <b>раздел с локальными исходниками</b> для новых сотрудников, пожалуйста
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <div class="ui two buttons">
+                                <div class="ui basic green button">Принять</div>
+                                <div class="ui basic red button">Отложить</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 class="ui horizontal divider header">
+                    <i class="tag icon"></i>
+                    Информация
+                </h4>
+                <div class="ui info message">
+                    <i class="close icon"></i>
+                    <div class="header">
+                        Берегите себя
+                    </div>
+<p>Всем сотрудникам компании проезд на такси до дома и доставка продуктов осуществляется за счёт компании.</p>
+                </div>
+
+            </div>
+
+
+            <script>
+                Data = new Date();
+                Hour = Data.getHours();
+                Minutes = Data.getMinutes();
+                Seconds = Data.getSeconds();
+                Month = Data.getMonth();
+                Day = Data.getDate();
+
+                // Преобразуем месяца
+                switch (Month)
+                {
+                    case 0: fMonth="января"; break;
+                    case 1: fMonth="февраля"; break;
+                    case 2: fMonth="марта"; break;
+                    case 3: fMonth="апреля"; break;
+                    case 4: fMonth="мая"; break;
+                    case 5: fMonth="июня"; break;
+                    case 6: fMonth="июля"; break;
+                    case 7: fMonth="августа"; break;
+                    case 8: fMonth="сентября"; break;
+                    case 9: fMonth="октября"; break;
+                    case 10: fMonth="ноября"; break;
+                    case 11: fMonth="декабря"; break;
+                }
+
+                // Вывод
+                var el = document.getElementById("shedule");
+                el.innerHTML = ("Программа на "+Day+" "+fMonth);
+                // Вывод
+                var el = document.getElementById("time");
+                el.innerHTML = "0" + Hour + ":" + Minutes;
+            </script>
+
+
+        </div>
+        <div class="three wide column"></div>
+    </div>
+</div>
+
+<div th:replace="blocks/header :: footer">
+</div>
+
+</body>
+</html>

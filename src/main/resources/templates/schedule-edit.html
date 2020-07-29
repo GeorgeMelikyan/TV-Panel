@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="blocks/header :: head">
+</head>
+<body>
+
+<div th:insert="blocks/header :: header">
+</div>
+
+<div class="ui centered grid" style="padding-top: 5rem;">
+    <div class="row">
+        <div class="four wide column"></div>
+        <div class="eight wide column">
+            <h3 class="ui top attached header">
+                Редактирование программы в эфире
+            </h3>
+            <div class="ui attached segment">
+
+                <div class="ui form error">
+                    <form method="post" th:action="'/schedule/edit/'+${schedule.id}">
+                        <div class="field">
+                            <input type="text" th:value="${schedule.day}" name="day" placeholder="Введите день недели">
+                        </div>
+                        <div class="field">
+                            <div class="ui calendar" id="no_ampm">
+                                <div class="ui input left icon">
+                                    <i class="time icon"></i>
+                                    <input  th:value="${schedule.program_time}" type="text" name="program_time" placeholder="Выберите время">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui fluid search selection dropdown">
+                                <input type="hidden" name="program_id" th:value="${schedule.program.iterator().next().getId()}">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Укажите программу</div>
+                                <div class="menu">
+                                    <div th:each="pr : ${programs}" class="item" th:text="${pr.name}" th:attr="data-value=${pr.id}" ></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui error message"></div>
+
+                        <button type="submit" class="ui submit button">Добавить</button>
+
+
+                    </form>
+                </div>
+
+
+                <script>
+
+                    $('#no_ampm')
+                        .calendar({
+                            type: 'time',
+                            ampm: false
+                        })
+                    ;
+
+                    $('.ui.form')
+                        .form({
+                            fields: {
+                                name: {
+                                    identifier: 'company_name',
+                                    rules: [
+                                        {
+                                            type: 'empty',
+                                            prompt: 'Пожалуйста, введите название компании'
+                                        }
+                                    ]
+                                },
+                                product: {
+                                    identifier: 'product',
+                                    rules: [
+                                        {
+                                            type: 'empty',
+                                            prompt: 'Пожалуйста, введите рекламируемый продукт'
+                                        }
+                                    ]
+                                },
+                                pos: {
+                                    identifier: 'agent',
+                                    rules: [
+                                        {
+                                            type: 'empty',
+                                            prompt: 'Пожалуйста, укажите рекламного представителя'
+                                        },
+
+                                    ]
+                                }
+                            }
+                        });
+                </script>
+
+            </div>
+        </div>
+
+        <div class="four wide column"></div>
+    </div>
+</div>
+
+<div th:replace="blocks/header :: footer">
+</div>
+
+</body>
+</html>

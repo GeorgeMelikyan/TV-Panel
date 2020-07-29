@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>SuperTV - Панель управления</title>
+        <link rel="shortcut icon" href="https://semantic-ui.com/images/logo.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.4/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.4/dist/semantic.min.js"></script>
+
+    <style type="text/css">
+        body, h3, h2, h1, span, button, div, p, li, ul, h4, h4, h5, input, a {
+            font-family: "Roboto Slab", 'Helvetica Neue', Arial,Helvetica,sans-serif !important;
+        }
+
+        .ui.menu .item img.logo {
+            margin-right: 1.5em;
+        }
+        .main.container {
+            margin-top: 7em;
+        }
+        .wireframe {
+            margin-top: 2em;
+        }
+        .ui.footer.segment {
+            margin: 5em 0em 0em;
+            padding: 5em 0em;
+        }
+    </style>
+</head>
+<body>
+
+<div th:fragment="header" class="ui fixed inverted menu">
+    <div class="ui container">
+        <a href="/" class="header item">
+            <img class="logo" src="https://semantic-ui.com/examples/assets/images/logo.png">
+            SuperTV
+        </a>
+        <a href="/" class="item">Главная</a>
+        <div class="ui simple dropdown item">
+            Эфир <i class="dropdown icon"></i>
+            <div class="menu">
+                <a class="item" href="/ads">Рекламный кабинет</a>
+                <a class="item" href="/program">Управление программами</a>
+                <a class="item" href="/schedule">Управление эфиром</a>
+            </div>
+        </div>
+        <a href="/team" class="item">Сотрудники</a>
+        <a href="/equip" class="item">Склад оборудовния</a>
+
+<div class="right item" style="padding: 0;">
+        <div class="item">
+            <img src="https://fomantic-ui.com/images/avatar/small/christian.jpg" class="ui mini rounded image">
+            <div class="content" style="margin-left: 15px;">
+                Георгий Меликян
+                <div class="sub header">Директор телеканала
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <a class="ui inverted button" href="/login">Выход</a>
+        </div>
+</div>
+
+    </div>
+</div>
+
+
+<div th:fragment="footer" class="ui inverted vertical footer segment">
+    <div class="ui center aligned container">
+        <img src="https://semantic-ui.com/examples/assets/images/logo.png" class="ui centered mini image">
+        <div class="ui horizontal inverted small divided link list">
+            <a class="item" href="#">SuperTV 2020 © Все права защищены</a>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

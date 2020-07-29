@@ -1,0 +1,207 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="blocks/header :: head">
+</head>
+<body>
+
+<div th:insert="blocks/header :: header">
+</div>
+
+<div class="ui centered grid" style="padding-top: 5rem;">
+    <div class="row">
+        <div class="one wide column"></div>
+        <div class="ten wide column">
+            <h3 class="ui top attached header">
+                Все сотрудники
+            </h3>
+            <div class="ui attached segment">
+                <table class="ui single line table">
+                    <thead>
+                    <tr>
+                        <th>Имя</th>
+                        <th>Телефон</th>
+                        <th>Дата рождения</th>
+                        <th>Должность</th>
+                        <th>Правка</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user : ${team}">
+                        <td th:text="${user.name}">John Lilki</td>
+                        <td th:text="${user.phone}">September 14, 2013</td>
+                        <td th:text="${user.birth}">jhlilk22@yahoo.com</td>
+                        <td th:text="${user.position}"></td>
+                        <td>
+                            <div class="ui small basic icon buttons" style="float: right;">
+                                <a th:href="'/team/'+${user.id}+'/edit-employ'">
+                                    <button class="ui green basic small button"><i class="edit icon"></i></button>
+                                </a>
+                                <form th:action="'/team/'+${user.id}+'/remove-employ'" method="post">
+                                    <button type="submit" class="ui red basic very small button"><i class="remove icon"></i>
+                                    </button>
+                                </form>
+
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <div class="four wide column">
+
+            <div class="ui segment">
+                <h4 class="ui horizontal divider header">
+                    <i class="user icon"></i>
+                    Новый сотрудник
+                </h4>
+
+                <div class="ui form error">
+                    <form method="post" action="/team/add-employ">
+                        <div class="field">
+                            <input type="text" name="name" placeholder="Имя">
+                        </div>
+                        <div class="field">
+                            <input type="text" name="phone" placeholder="Телефон">
+                        </div>
+
+                        <div class="field calendar" id="birth">
+                            <input type="text" name="birth" placeholder="Дата рождения">
+                        </div>
+
+                        <div class="field">
+                            <input type="text" name="position" placeholder="Должность">
+                        </div>
+                        <div class="ui error message"></div>
+
+                        <button type="submit" class="ui submit button">Добавить</button>
+
+
+                    </form>
+                </div>
+
+
+                <script>
+
+                    $('#birth').calendar({
+                        type: 'date',
+                    });
+
+                    $('.ui.form')
+                        .form({
+                            fields: {
+                                name: {
+                                    identifier: 'name',
+                                    rules: [
+                                        {
+                                            type: 'empty',
+                                            prompt: 'Пожалуйста, введите имя'
+                                        }
+                                    ]
+                                },
+                                phone: {
+                                    identifier: 'phone',
+                                    rules: [
+                                        {
+                                            type: 'integer',
+                                            prompt: 'Пожалуйста, укажите номер цифрами'
+                                        }
+                                    ]
+                                },
+                                birth: {
+                                    identifier: 'birth',
+                                    rules: [
+                                        {
+                                            type: 'empty',
+                                            prompt: 'Пожалуйста, укажите дату рождения'
+                                        }
+                                    ]
+                                },
+                                pos: {
+                                    identifier: 'position',
+                                    rules: [
+                                        {
+                                            type: 'empty',
+                                            prompt: 'Пожалуйста, укажите должность'
+                                        },
+
+                                    ]
+                                }
+                            }
+                        });
+                </script>
+
+            </div>
+            <div class="ui segment">
+                <h4 class="ui horizontal divider header">
+                    <i class="group icon"></i>
+                    Рабочие группы
+                </h4>
+
+                <div class="ui form wg error">
+                            <form method="post" action="/team/add-wg">
+                                <div class="ui action input">
+                                    <input type="text" name="name" placeholder="Название группы" style="width: 81%">
+                                    <button type="submit" class="ui icon button">
+                                        Добавить
+                                    </button>
+                                </div>
+                                    <div class="ui error message"></div>
+                            </form>
+                </div>
+
+
+                <table class="ui single line table">
+                    <tbody>
+                    <tr th:each="group: ${wg}">
+                        <td th:text="${group.name}">
+                        </td>
+                        <td>
+
+                            <div class="ui icon buttons" style="float: right;">
+                                <a th:href="'/team/'+${group.id}+'/edit-wg'">
+                                <button class="ui button"><i class="edit icon"></i></button>
+                                </a>
+                                <form th:action="'/team/'+${group.id}+'/remove-wg'" method="post">
+                                <button class="ui button"><i class="remove icon"></i></button>
+                                </form>
+
+                            </div>
+                    </tr>
+                    </tbody>
+                </table>
+
+
+
+                <script>
+                    $('.ui.form.wg')
+                        .form({
+                            fields: {
+                                name: {
+                                    identifier: 'name',
+                                    rules: [
+                                        {
+                                            type: 'empty',
+                                            prompt: 'Пожалуйста, введите имя рабочей группы'
+                                        }
+                                    ]
+                                }
+                            }
+                        });
+                </script>
+            </div>
+
+
+
+        </div>
+        <div class="two wide column"></div>
+    </div>
+</div>
+
+<div th:replace="blocks/header :: footer">
+</div>
+
+</body>
+</html>

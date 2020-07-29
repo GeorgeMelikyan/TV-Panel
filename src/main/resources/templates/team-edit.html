@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<title th:text="'TV » Редактирование сотрудника'"></title>
+<head th:insert="blocks/header :: head">
+</head>
+<body>
+
+<div th:insert="blocks/header :: header">
+</div>
+
+<div class="ui centered grid" style="padding-top: 5rem;">
+    <div class="row">
+        <div class="four wide column"></div>
+        <div class="eight wide column">
+            <h3 class="ui top attached header">
+                Редактирование сотрудника
+            </h3>
+            <div class="ui attached segment">
+
+                    <div class="ui form error">
+                        <form th:each="el : ${user}" method="post">
+                            <div class="field">
+                                <input th:value="${el.name}" type="text" name="name"  placeholder="Имя">
+                            </div>
+                            <div class="field">
+                                <input th:value="${el.phone}" type="text" name="phone" placeholder="Телефон">
+                            </div>
+
+                            <div class="field calendar" id="birth">
+                                <input th:value="${el.birth}"  type="text" name="birth" placeholder="Дата рождения">
+                            </div>
+
+                            <div class="field">
+                                <input th:value="${el.position}"  type="text" name="position" placeholder="Должность">
+                            </div>
+                            <div class="ui error message"></div>
+
+                            <button type="submit" class="ui submit button">Изменить</button>
+
+
+                        </form>
+                    </div>
+
+
+
+                    <script>
+
+                        $('#birth').calendar({
+                            type: 'date',
+                        });
+
+                        $('.ui.form')
+                            .form({
+                                fields: {
+                                    name: {
+                                        identifier: 'name',
+                                        rules: [
+                                            {
+                                                type: 'empty',
+                                                prompt: 'Пожалуйста, введите имя'
+                                            }
+                                        ]
+                                    },
+                                    phone: {
+                                        identifier: 'phone',
+                                        rules: [
+                                            {
+                                                type: 'integer',
+                                                prompt: 'Пожалуйста, укажите номер цифрами'
+                                            }
+                                        ]
+                                    },
+                                    birth: {
+                                        identifier: 'birth',
+                                        rules: [
+                                            {
+                                                type: 'empty',
+                                                prompt: 'Пожалуйста, укажите дату рождения'
+                                            }
+                                        ]
+                                    },
+                                    pos: {
+                                        identifier: 'position',
+                                        rules: [
+                                            {
+                                                type: 'empty',
+                                                prompt: 'Пожалуйста, укажите должность'
+                                            },
+
+                                        ]
+                                    }
+                                }
+                            });
+                    </script>
+
+            </div>
+        </div>
+
+        <div class="four wide column"></div>
+    </div>
+</div>
+
+<div th:replace="blocks/header :: footer">
+</div>
+
+</body>
+</html>

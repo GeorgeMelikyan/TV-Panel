@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="blocks/header :: head">
+</head>
+<body>
+
+<div th:insert="blocks/header :: header">
+</div>
+
+<div class="ui centered grid" style="padding-top: 5rem;">
+    <div class="row">
+        <div class="two wide column"></div>
+        <div class="twelve wide column">
+            <h3 class="ui top attached header" style="margin-top: 15px;">
+                <i class="tv icon"></i> Панель управления программой
+            </h3>
+            <div class="ui attached segment" >
+                <form class="ui error form" method="post" th:each="el : ${programs}" style="display: unset">
+                    <div class="field">
+                        <label>Основная информация</label>
+                        <div class="two fields">
+                            <div class="field">
+                                <input type="text" name="name" th:value="${el.name}" placeholder="Введите название">
+                            </div>
+                            <div class="field">
+                                <div class="ui calendar" id="no_ampm">
+                                    <div class="ui input left icon">
+                                        <i class="time icon"></i>
+                                        <input type="text" name="duration" th:value="${el.duration}" placeholder="Введите продолжительность">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="inline field">
+                            <label>Рекламная кампания (при согласовании) </label>
+                            <div class="ui fluid search selection dropdown">
+                                <i class="dollar icon"></i>
+                                <input th:if="${not #lists.isEmpty(programs.getAds())}" type="hidden" th:value="${programs.getAds().iterator().next().getId()}" name="ads_id">
+                                <input th:if="${#lists.isEmpty(programs.getAds())}" type="hidden" name="ads_id">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Выберите рекламную компанию</div>
+                                <div class="menu">
+                                    <div th:each="ads : ${ads}" class="item" th:text="${ads.company_name}+' / '+${ads.product}+
+                                    ' / ' + ${ads.duration} + ' сек.'" th:attr="data-value=${ads.id}" ></div>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="field">
+                        <label>Описание</label>
+                        <textarea th:text="${el.description}" name="description"></textarea>
+                    </div>
+                    <h4 class="ui dividing header">Технические подробности</h4>
+                    <div class="field">
+                        <input type="text" name="url" th:value="${el.url}" placeholder="Введите URL адрес трансляции">
+                    </div>
+                    <div class="two fields">
+                        <div class="field">
+                            <div class="ui fluid search selection dropdown">
+                                <input type="hidden" name="wg_id" th:value="${el.wg.id}">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Выберите производство - рабочую группу</div>
+                                <div class="menu">
+                                    <div th:each="wg : ${wg}" class="item" th:text="${wg.name}" th:attr="data-value=${wg.id}" ></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui fluid search selection dropdown">
+                                <input type="hidden" name="eq_id" th:value="${el.equip.id}">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Выберите комплект оборудования</div>
+                                <div class="menu">
+                                    <div th:each="el2 : ${eq}" class="item" th:text="${el2.cameras}" th:attr="data-value=${el2.id}" ></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui error message"></div>
+                    <button class="ui button" type="submit" tabindex="0">Сохранить</button>
+                </form>
+                    <form th:action="'/program/delete/'+${programs.id}" method="post" style="display: unset;"><button type="submit" class="ui button" tabindex="0">Удалить</button></form>
+
+            </div>
+        </div>
+
+        <div class="two wide column"></div>
+
+    </div>
+</div>
+
+<div th:replace="blocks/header :: footer">
+</div>
+
+<script>
+
+    $('#no_ampm')
+        .calendar({
+            type: 'time',
+            ampm: false
+        })
+    ;
+
+    $('#birth').calendar({
+        type: 'date',
+    });
+
+    $('.ui.accordion')
+        .accordion()
+    ;
+
+    $('.ui.form')
+        .form({
+            fields: {
+                name: {
+                    identifier: 'name',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Пожалуйста, введите название'
+                        }
+                    ]
+                },
+                duration: {
+                    identifier: 'duration',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Пожалуйста, введите продолжительность'
+                        }
+                    ]
+                },
+                description: {
+                    identifier: 'description',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Пожалуйста, введите описание'
+                        }
+                    ]
+                },
+                url: {
+                    identifier: 'url',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Пожалуйста, введите URL'
+                        },
+
+                    ]
+                },
+                wg_id: {
+                    identifier: 'wg_id',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Пожалуйста, введите название группы'
+                        }
+                    ]
+                },
+                eq_id: {
+                    identifier: 'eq_id',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Пожалуйста, введите комплект оборудования'
+                        }
+                    ]
+                },
+            }
+        });
+</script>
+
+</body>
+</html>

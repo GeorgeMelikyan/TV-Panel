@@ -1,0 +1,189 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="blocks/header :: head">
+</head>
+<body>
+
+<div th:insert="blocks/header :: header">
+</div>
+
+<div class="ui centered grid" style="padding-top: 5rem;">
+    <div class="row">
+        <div class="two wide column"></div>
+        <div class="twelve wide column">
+            <div class="ui styled fluid accordion">
+                <div class="title">
+                    <h3 class="ui header" style="margin-top: 5px; display: unset;">
+                        <i class="add icon"></i> Добавление новой телепрограммы
+                    </h3>
+                    <i class="dropdown icon"></i>
+                </div>
+                <div class="content">
+                <form class="ui error form" method="post">
+                    <div class="field">
+                        <label>Основная информация</label>
+                        <div class="two fields">
+                            <div class="field">
+                                <input type="text" name="name" placeholder="Введите название">
+                            </div>
+                            <div class="field">
+                                <div class="ui calendar" id="no_ampm">
+                                    <div class="ui input left icon">
+                                        <i class="time icon"></i>
+                                        <input type="text" name="duration" placeholder="Введите продолжительность">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>Описание</label>
+                        <textarea name="description"></textarea>
+                    </div>
+                    <div class="ui ignored positive message">
+                        Будьте внимательны при заполнении. Итоговая трансляция преобразуется из указанных здесь данных
+                    </div>
+                    <h4 class="ui dividing header">Технические подробности</h4>
+                    <div class="field">
+                        <input type="text" name="url" placeholder="Введите URL адрес трансляции">
+                    </div>
+                    <div class="two fields">
+                        <div class="field">
+                            <div class="ui fluid search selection dropdown">
+                                <input type="hidden" name="wg_id">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Выберите производство - рабочую группу</div>
+                                <div class="menu">
+                                    <div th:each="el : ${wg}" class="item" th:text="${el.name}" th:attr="data-value=${el.id}" ></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui fluid search selection dropdown">
+                                <input type="hidden" name="eq_id">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Выберите комплект оборудования</div>
+                                <div class="menu">
+                                    <div th:each="el : ${eq}" class="item" th:text="${el.cameras}" th:attr="data-value=${el.id}" ></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="ui button" type="submit" tabindex="0">Добавить</button>
+                    <div class="ui error message"></div>
+                </form>
+                </div>
+
+            </div>
+
+
+            <h3 class="ui top attached header" style="margin-top: 15px;">
+                <i class="tv icon"></i> Все телепрограммы
+            </h3>
+            <div class="ui attached segment" >
+                <div th:each="program : ${programs}" class="ui segment">
+                    <a class="ui green left ribbon label" th:text="${program.duration}">16:45</a>
+                    <h3 class="header" style="display: unset" th:text="${program.name}"></h3>
+                    <div class="extra" style="display: inline-block; float: right;">
+                        <div class="ui orange basic label" th:if="${not #lists.isEmpty(program.ads)}">
+                            <i class="dollar icon"></i>
+                            <div style="display: unset" th:text="'Выпуск содержит рекламу: '+ ${program.ads.iterator().next().company_name}" ></div>
+                        </div>
+                        <div class="ui red basic label" th:text="${program.wg.name}">Синема Продакшн</div>
+                        <a th:href="'/program/edit/'+${program.id}" ><div class="ui blue basic label"><i class="edit icon"></i>Изменить</div></a>
+                    </div>
+                    <div class="ui grid" style="margin-top: 5px;">
+
+                        <div class="twelve wide column">
+                            <div class="content">
+
+
+                                <div class="description" style="height: 85px;  overflow: overlay; padding-right: 11px;">
+                                    <p th:text="${program.description}"></p>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="four wide column">
+                            <div class="image">
+                                <img th:src="${program.url}" style="
+    width: 100%;
+">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="two wide column"></div>
+
+    </div>
+</div>
+
+<div th:replace="blocks/header :: footer">
+</div>
+
+<script>
+
+    $('#no_ampm')
+        .calendar({
+            type: 'time',
+            ampm: false
+        })
+    ;
+
+    $('#birth').calendar({
+        type: 'date',
+    });
+
+    $('.ui.accordion')
+        .accordion()
+    ;
+
+    $('.ui.form')
+        .form({
+            fields: {
+                name: {
+                    identifier: 'name',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Пожалуйста, введите имя'
+                        }
+                    ]
+                },
+                phone: {
+                    identifier: 'phone',
+                    rules: [
+                        {
+                            type: 'integer',
+                            prompt: 'Пожалуйста, укажите номер цифрами'
+                        }
+                    ]
+                },
+                birth: {
+                    identifier: 'birth',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Пожалуйста, укажите дату рождения'
+                        }
+                    ]
+                },
+                pos: {
+                    identifier: 'position',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Пожалуйста, укажите должность'
+                        },
+
+                    ]
+                }
+            }
+        });
+</script>
+
+</body>
+</html>
