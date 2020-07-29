@@ -12,9 +12,10 @@ I have check my knowledge in MVC applications and Spring Boot :)
 - Main Panel
 
 ### Components:
-1. Spring Framework
-2. MVC pattern
-3. Thymleaf blade
-4. JPA
-5. MySQL
-6. [Semantic UI](https://semantic-ui.com/) & [Bootstrap Grid](https://getbootstrap.com/)
+1. Maven
+2. Spring Framework
+3. MVC pattern
+4. Thymleaf blade
+5. JPA
+6. MySQL
+7. [Semantic UI](https://semantic-ui.com/) & [Bootstrap Grid](https://getbootstrap.com/)
